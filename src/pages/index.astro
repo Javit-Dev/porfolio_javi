@@ -1,11 +1,51 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Badge from '../components/Badge.astro';
+import GithubIcon from '../components/icons/GithubIcon.astro';
+import SocialPill from '../components/SocialPill.astro';
+import LinkedinIcon from '../components/icons/LinkedinIcon.astro';
+import MailIcon from '../components/icons/MailIcon.astro';
+import Experience from '../components/Experience.astro';
+import SectionContainer from '../components/SectionContainer.astro';
+import Projects from '../components/Projects.astro';
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="Porfolio de Javi"
+	description="Software developer especializado en desarrollo web y móvil. Apasionado por crear soluciones innovadoras y eficientes que mejoren la experiencia del usuario.">
+		<main class="px-2">
+			<SectionContainer id="presentacion" class="py-44 pb-32">
+				<img class="rounded-full size-12 mb-4" src="https://avatars.githubusercontent.com/u/82216868?v=4" alt="Foto Javi"/>
+				<h1 class="text-white text-3xl md:text-4xl lg:text-5xl font-bold flex flex-row gap-x-4 pb-6  lg:pb-10">Soy Javi 
+					<div class="flex justify-center items-center">
+						<Badge>Disponible para trabajar</Badge>
+					</div>
+				</h1> 
+				<h2 class="text-xl lg:text-2xl opacity-80 text-wrap max-w-[700px]">
+					Software developer especializado en desarrollo web y móvil. Apasionado por crear soluciones innovadoras y eficientes que mejoren la experiencia del usuario.
+				</h2>
+				
+				<nav class="flex gap-4 mt-8 flex-wrap">
+					<SocialPill href="https://github.com/Javit-Dev">
+						<GithubIcon/> Github
+					</SocialPill>
+					<SocialPill href="https://www.linkedin.com/">
+						<LinkedinIcon/> Linkedin
+					</SocialPill>
+					<SocialPill href="mailto:javitin.dev@gmail.com">
+						<MailIcon/> Contáctame
+					</SocialPill>
+				</nav>
+			</SectionContainer>
+
+			<SectionContainer id="experiencia">
+				<h2  class="text-3xl font-semibold mb-6">Experiencia laboral</h2>
+				<Experience/>
+			</SectionContainer>
+
+			<SectionContainer id="proyectos">
+				<h2  class="text-3xl font-semibold mb-6">Proyectos</h2>
+				<Projects/>
+			</SectionContainer>
+		</main>
 </Layout>
+

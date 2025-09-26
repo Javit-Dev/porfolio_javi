@@ -1,0 +1,194 @@
+<header>
+    <nav class="fixed w-full z-20 top-0 start-0 bg-white/5 dark:bg-gray-900/20 backdrop-blur border-b border-white/10 ">
+    <div class="max-w-screen-xl flex items-center justify-center mx-auto p-4 relative">
+
+        <!-- Botón hamburguesa (solo mobile) -->
+        <button id="menu-button" type="button"
+        class="md:hidden absolute right-4 top-1/2 -translate-y-1/2 inline-flex items-center p-2 w-10 h-10 justify-center
+                text-white rounded-lg hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/30"
+        aria-controls="navbar-sticky" aria-expanded="false">
+        <span class="sr-only">Abrir menú</span>
+        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M1 1h15M1 7h15M1 13h15"/>
+        </svg>
+        </button>
+
+        <!-- Menú -->
+        <div class="items-center justify-between hidden w-full md:flex md:w-auto" id="navbar-sticky">
+        <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium rounded-lg md:space-x-8 md:flex-row md:mt-0 md:border-0">
+            <li><a href="#experiencia" class="block py-2 px-3 text-white hover:text-white/80 ">Experiencia</a></li>
+            <li><a href="#proyectos" class="block py-2 px-3 text-white hover:text-white/80">Proyectos</a></li>
+            <li><a href="#sobre-mi" class="block py-2 px-3 text-white hover:text-white/80">Sobre mí</a></li>
+            <li><a href="mailto:javitin.dev@gmail.com" class="block py-2 px-3 text-white hover:text-white/80">Contacto</a></li>
+        </ul>
+        </div>
+    </div>
+    </nav>
+</header>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    const menuBtn = document.getElementById('menu-button');
+    const menu = document.getElementById('navbar-sticky');
+    if (!menuBtn || !menu) return;
+
+    // --- Toggle mobile ---
+    menuBtn.addEventListener('click', () => {
+      menu.classList.toggle('hidden');
+      menuBtn.setAttribute('aria-expanded', menu.classList.contains('hidden') ? 'false' : 'true');
+    });
+
+    // ===== CONFIG =====
+    const ACTIVE_CLASSES   = ['!text-sky-400', 'font-bold', 'scale-105', 'underline', 'underline-offset-8', 'decoration-2'];
+    const INACTIVE_CLASSES = ['text-white', 'hover:text-white/80', 'font-medium', 'no-underline', 'scale-100'];
+    const LINK_BASE_CLASSES = ['inline-block', 'transition', 'duration-200', 'ease-out', 'transform-gpu'];
+
+    const ACTIVE_THRESHOLD = 0.5; // 0..1 -> % visible requerido
+    const TOP_BAND = 35;          // % viewport ignorado arriba
+    const BOTTOM_BAND = 55;       // % ignorado abajo
+    const CLEAR_TOP_OFFSET = 8;   // px desde el top para considerar "arriba del todo"
+    const IGNORE_ID = 'presentacion'; // sección hero que no queremos resaltar
+    // ===================
+
+    const links = Array.from(menu.querySelectorAll('a[href^="#"]'));
+    const sections = links
+      .map(a => document.querySelector(a.getAttribute('href') || ''))
+      .filter(Boolean);
+
+    // clases base en todos los enlaces
+    links.forEach(a => LINK_BASE_CLASSES.forEach(c => a.classList.add(c)));
+
+    const clearActive = () => {
+      links.forEach(a => {
+        a.classList.remove(...ACTIVE_CLASSES);
+        INACTIVE_CLASSES.forEach(c => a.classList.add(c));
+        a.removeAttribute('data-active');
+      });
+    };
+
+    const setActive = (el) => {
+      clearActive();
+      ACTIVE_CLASSES.forEach(c => el.classList.add(c));
+      el.setAttribute('data-active', 'true');
+    };
+
+    // --- Lógica para "no marcar" arriba o en #presentacion ---
+    const hero = document.getElementById(IGNORE_ID);
+
+    const inDecisionBand = (rect) => {
+      const vh = window.innerHeight;
+      const bandTop = vh * (TOP_BAND / 100);
+      const bandBottom = vh * (1 - BOTTOM_BAND / 100);
+      return rect.bottom > bandTop && rect.top < bandBottom;
+    };
+
+    let scrollRaf = false;
+    const maybeClearAtTopOrHero = () => {
+      if (scrollRaf) return;
+      scrollRaf = true;
+      requestAnimationFrame(() => {
+        scrollRaf = false;
+
+        // Arriba del todo
+        if (window.scrollY <= CLEAR_TOP_OFFSET) {
+          clearActive();
+          return true;
+        }
+        // Dentro de la banda con #presentacion
+        if (hero) {
+          const r = hero.getBoundingClientRect();
+          if (inDecisionBand(r)) {
+            clearActive();
+            return true;
+          }
+        }
+        return false;
+      });
+    };
+
+    window.addEventListener('scroll', maybeClearAtTopOrHero, { passive: true });
+    window.addEventListener('resize', maybeClearAtTopOrHero);
+
+    // --- IntersectionObserver para el resto de secciones ---
+    if (sections.length && 'IntersectionObserver' in window) {
+      const thresholds = Array.from({ length: 21 }, (_, i) => i / 20); // 0, .05, ..., 1
+      const ratios = new Map();
+      let rafPending = false;
+
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => ratios.set(entry.target.id, entry.intersectionRatio));
+
+        if (rafPending) return;
+        rafPending = true;
+
+        requestAnimationFrame(() => {
+          rafPending = false;
+
+          // Si estamos arriba o en el hero, no marcar nada
+          // (si devuelve true, ya ha limpiado y salimos)
+          const cleared = maybeClearAtTopOrHero();
+          // maybeClearAtTopOrHero usa rAF; para este tick tomamos window.scrollY directo:
+          if (window.scrollY <= CLEAR_TOP_OFFSET) return;
+          if (hero && inDecisionBand(hero.getBoundingClientRect())) return;
+
+          let bestId = null;
+          let bestRatio = 0;
+
+          const vh = window.innerHeight;
+          const bandTopPx = window.scrollY + vh * (TOP_BAND / 100);
+          const bandBottomPx = window.scrollY + vh * (1 - BOTTOM_BAND / 100);
+
+          entries.forEach(entry => {
+            const rect = entry.boundingClientRect;
+            const secTop = window.scrollY + rect.top;
+            const secBottom = secTop + rect.height;
+            const overlapsBand = secBottom > bandTopPx && secTop < bandBottomPx;
+            const ratio = ratios.get(entry.target.id) ?? 0;
+
+            if (overlapsBand && ratio >= ACTIVE_THRESHOLD && ratio > bestRatio) {
+              bestRatio = ratio;
+              bestId = entry.target.id;
+            }
+          });
+
+          // Fallback: la más visible si ninguna supera umbral
+          if (!bestId) {
+            ratios.forEach((r, id) => { if (r > bestRatio) { bestRatio = r; bestId = id; } });
+          }
+
+          const link = bestId && links.find(a => a.getAttribute('href') === `#${bestId}`);
+          if (link) setActive(link);
+        });
+      }, {
+        root: null,
+        rootMargin: `-${TOP_BAND}% 0px -${BOTTOM_BAND}% 0px`,
+        threshold: thresholds
+      });
+
+      sections.forEach(sec => io.observe(sec));
+    }
+
+    // Click en enlaces: si es el hero o #top, limpiar; si no, activar
+    links.forEach(a => {
+      a.addEventListener('click', () => {
+        const href = a.getAttribute('href') || '';
+        if (href === `#${IGNORE_ID}` || href === '#top') {
+          clearActive();
+        } else {
+          setActive(a);
+        }
+        if (!menu.classList.contains('md:flex')) menu.classList.add('hidden');
+      });
+    });
+
+    // Estado inicial: ninguno activo
+    clearActive();
+    // Si llegas con hash en la URL (y no es el hero), activar ese
+    if (location.hash && location.hash !== `#${IGNORE_ID}`) {
+      const initial = links.find(a => a.getAttribute('href') === location.hash);
+      if (initial) setActive(initial);
+    }
+  });
+</script>
+

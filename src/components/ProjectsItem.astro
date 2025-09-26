@@ -1,0 +1,11 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  image: string;
+  tags: string[];
+  link?: string;
+  github?: string;
+}
+const { title, description, image, tags, link, github } = Astro.props;
+---
