@@ -5,7 +5,7 @@ const PROJECTS = [
   {
     title: "2ISI",
     description:
-      "Dashboard estadístico para recoger y visualizar datos sobre tus grupos de discord de forma sencilla y atractiva. Utiliza un Bot para recopilar datos y mostrarlos en gráficos interactivos.",
+      `Dashboard para Discord que recopila datos de tus servidores mediante un Bot y los muestra en gráficos dinámicos e interactivos.`,
     image: "/projects/proyecto1.webp",
     tags: ["Flask", "Angular", "Azure", "Docker", "gRPC"],
     github: "https://github.com/Javit-Dev/isi-2isi",
@@ -13,7 +13,7 @@ const PROJECTS = [
   {
     title: "IPOkemon",
     description:
-      "Aplicación de escritorio para la asignatura de IPO 2, permite interactuar y realizar batallas con Pokemon realizados en Blend.",
+      `Aplicación de escritorio creada en .NET y C# que permite simular batallas entre Pokémon, desarrollada para la asignatura de IPO 2.`,
     image: "/projects/proyecto1.webp",
     tags: [".NET", "C#", "WPF"],
     github: "https://github.com/Javit-Dev/IPOkemon",
@@ -21,7 +21,7 @@ const PROJECTS = [
   {
       title: "Remote-Types",
       description:
-      "Aplicación realizada para la asignatura de Sistemas Distribuidos, el cual permite tener un sistema de tipos remotos realizado en Python con ZeroC Ice. Además cuenta con un cliente con Apache Kafka.",
+      `Proyecto de Sistemas Distribuidos en Python con ZeroC Ice y Apache Kafka que implementa un sistema de tipos remotos junto a un cliente funcional.`,
       image: "/projects/proyecto1.webp",
       tags: ["Python", "ZeroCIce", "Apache Kafka"],
       github: "https://github.com/Javit-Dev/remote-types-Distribuidos-2024"
@@ -29,9 +29,9 @@ const PROJECTS = [
 ];
 ---
 
-<ol class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+<ol class="space-y-12">
 {PROJECTS.map((project) => (
-    <li class="flex justify-center">
+    <li>
     <ProjectsItem {...project} />
     </li>
 ))}
