@@ -11,35 +11,43 @@ import SectionContainer from '../components/SectionContainer.astro';
 import avatar from '../assets/github_profile_pic.jpg';
 import { Image } from 'astro:assets';
 import Projects from '../components/Projects.astro';
+import CVIcon from '../components/icons/CVIcon.astro';
 ---
 
 <Layout title="Porfolio de Javi"
 	description="Portafolio de proyectos y experiencia de Javi, desarrollador web y móvil.">
 		<main class="px-2">
-			<SectionContainer id="presentacion" class="py-44 pb-32">
-				<div class="flex flex-row items-center gap-4 mb-6">
-					<Image src={avatar} alt="Foto Javi" class="rounded-full size-16" loading="eager" decoding="async"/>
-					<Badge href="mailto:javitin.dev@gmail.com" class="hover:scale-110 transition">Disponible para trabajar</Badge>
+			<SectionContainer id="presentacion" class="lg:h-screen py-44 lg:py-0 lg:flex lg:items-center">
+				<div class="flex flex-col items-center md:flex-row gap-6">
+					<Image src={avatar} alt="Foto Javi" class="w-44 h-auto rounded-full" loading="eager" decoding="async"/>
+
+					<div class="flex flex-col items-center justify-center text-center md:items-start md:text-start md:justfiy-start">
+						<div class="mb-2">
+							<Badge href="mailto:javitin.dev@gmail.com" class="inline-flex transition-transform hover:scale-110">Disponible para trabajar</Badge>
+						</div>
+						<h1 class="text-3xl md:text-4xl lg:text-5xl font-bold flex flex-row gap-x-4 pb-2">Javier Moreno Cano
+
+						</h1> 
+						<h2 class="text-xl lg:text-2xl opacity-80 text-wrap max-w-[700px]">
+							Estudiante de último año de Ingeniería Informática y desarrollador web y móvil.
+						</h2>
+						
+						<nav class="flex gap-4 mt-2 flex-wrap">
+							<SocialPill href="https://github.com/Javit-Dev">
+								<GithubIcon/> Github
+							</SocialPill>
+							<SocialPill href="https://www.linkedin.com/">
+								<LinkedinIcon/> Linkedin
+							</SocialPill>
+							<SocialPill href="mailto:javitin.dev@gmail.com">
+								<MailIcon/> Contáctame
+							</SocialPill>
+							<SocialPill href="mailto:javitin.dev@gmail.com">
+								<CVIcon/> CV
+							</SocialPill>
+						</nav>
+					</div>
 				</div>
-
-				<h1 class="text-3xl md:text-4xl lg:text-5xl font-bold flex flex-row gap-x-4 pb-6">Javier Moreno Cano
-
-				</h1> 
-				<h2 class="text-xl lg:text-2xl opacity-80 text-wrap max-w-[700px]">
-					Estudiante de último año de Ingeniería Informática y desarrollador web y móvil.
-				</h2>
-				
-				<nav class="flex gap-4 mt-8 flex-wrap">
-					<SocialPill href="https://github.com/Javit-Dev">
-						<GithubIcon/> Github
-					</SocialPill>
-					<SocialPill href="https://www.linkedin.com/">
-						<LinkedinIcon/> Linkedin
-					</SocialPill>
-					<SocialPill href="mailto:javitin.dev@gmail.com">
-						<MailIcon/> Contáctame
-					</SocialPill>
-				</nav>
 			</SectionContainer>
 
 			<SectionContainer id="formacion">
