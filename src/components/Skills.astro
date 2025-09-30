@@ -1,0 +1,44 @@
+---
+import SkillsItem from "./SkillsItem.astro";
+import PythonIcon from "../components/icons/skills/PythonIcon.astro";
+import JavaIcon from "../components/icons/skills/JavaIcon.astro";
+import CSharpIcon from "../components/icons/skills/CSharpIcon.astro";
+import TypescriptIcon from "../components/icons/skills/TypescriptIcon.astro";
+
+import AngularIcon from "../components/icons/skills/AngularIcon.astro";
+import NetIcon from "../components/icons/skills/NetIcon.astro";
+import AndroidIcon from '../components/icons/skills/AndroidIcon.astro';
+import SpringIcon from "../components/icons/skills/SpringIcon.astro";
+
+const LANGUAGES = [
+  { name: "Python", icon: PythonIcon },
+  { name: "Java", icon: JavaIcon },
+  { name: "C#", icon: CSharpIcon },         
+  { name: "TypeScript", icon: TypescriptIcon }
+];
+
+const FRAMEWORKS = [
+  { name: "Angular", icon: AngularIcon },
+  { name: ".NET", icon: NetIcon },
+  { name: "Android", icon: AndroidIcon },
+  { name: "Spring", icon: SpringIcon }
+];
+---
+
+<section class="grid grid-cols-1 md:grid-cols-2 gap-6">
+  <article class="border border-white/10 rounded-2xl p-6 bg-gradient-to-b from-white/5 to-white/2 hover:from-white/10 hover:to-white/5 transition">
+    <h3 class="text-2xl font-semibold mb-4 text-center">Lenguajes</h3>
+    <div class="grid grid-cols-3 gap-2">
+      {LANGUAGES.map((language) => (
+        <SkillsItem {...language} />
+      ))}
+    </div>
+  </article>
+  <article class="border border-white/10 rounded-2xl p-6 bg-gradient-to-b from-white/5 to-white/2 hover:from-white/10 hover:to-white/5 transition">
+    <h3 class="text-2xl font-semibold mb-4 text-center">Frameworks</h3>
+    <div class="grid grid-cols-3 gap-2">
+      {FRAMEWORKS.map((framework) => (
+        <SkillsItem {...framework} />
+      ))}
+    </div>
+  </article>

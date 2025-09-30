@@ -1,0 +1,42 @@
+---
+import Badge from '../components/Badge.astro';
+import SocialPill from '../components/SocialPill.astro';
+import GithubIcon from '../components/icons/socials/GithubIcon.astro';
+import LinkedinIcon from '../components/icons/socials/LinkedinIcon.astro';
+import MailIcon from '../components/icons/socials/MailIcon.astro';
+import CVIcon from '../components/icons/socials/CVIcon.astro';
+import avatar from '../assets/github_profile_pic.jpg';
+import { Image } from 'astro:assets';
+---
+
+
+<div class="flex flex-col items-center md:flex-row gap-6">
+    <Image src={avatar} alt="Foto Javi" class="w-44 h-auto rounded-full" loading="eager" decoding="async"/>
+
+    <div class="flex flex-col items-center justify-center text-center md:items-start md:text-start md:justfiy-start">
+        <div class="mb-2">
+            <Badge href="mailto:javitin.dev@gmail.com" class="inline-flex transition-transform hover:scale-110">Disponible para trabajar</Badge>
+        </div>
+        <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold flex flex-row gap-x-4 pb-2">Javier Moreno Cano
+
+        </h1> 
+        <h2 class="text-xl lg:text-2xl opacity-80 text-wrap max-w-[700px]">
+            Estudiante de último año de Ingeniería Informática y desarrollador web y móvil.
+        </h2>
+        
+        <nav class="flex gap-4 mt-2 flex-wrap">
+            <SocialPill href="https://github.com/Javit-Dev">
+                <GithubIcon/> 
+            </SocialPill>
+            <SocialPill href="https://www.linkedin.com/">
+                <LinkedinIcon/> 
+            </SocialPill>
+            <SocialPill href="mailto:javitin.dev@gmail.com">
+                <MailIcon/> 
+            </SocialPill>
+            <SocialPill href="mailto:javitin.dev@gmail.com">
+                <CVIcon/>
+            </SocialPill>
+        </nav>
+    </div>
+</div>

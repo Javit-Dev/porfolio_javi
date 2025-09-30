@@ -1,0 +1,21 @@
+---
+import avatar from '../assets/github_profile_pic.jpg';
+import { Image } from 'astro:assets';
+---
+
+<div class="flex flex-col items-center md:items-start md:flex-row-reverse gap-4">
+    <div class="rounded-2xl ring-2 ring-white/10 border border-white/10  p-2  bg-white/5 shadow-lg">
+            <Image src={avatar} alt="Foto Javi" class="rounded-xl" loading="lazy" decoding="async"/>
+    </div>
+    <div class="space-y-3">
+    <p class="text-base text-pretty opacity-80">
+        Soy un apasionado de la tecnología y el desarrollo de software, siempre buscando aprender y mejorar mis habilidades.
+    </p>
+    <p class="text-base text-pretty opacity-80">
+        Me encanta trabajar en proyectos que desafían mis conocimientos y me permiten crecer profesionalmente.
+    </p>
+    <p class="text-base text-pretty opacity-80">
+        En mi tiempo libre, disfruto explorando nuevas tecnologías, contribuyendo a proyectos de código abierto y compartiendo mis conocimientos con la comunidad.
+    </p>
+    </div>
+</div>
