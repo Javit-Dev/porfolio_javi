@@ -40,7 +40,9 @@ const TOOLS: SkillsItemProps[] = [
 ---
 
 <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
-  <article class="border border-white/10 rounded-2xl p-6 bg-gradient-to-b from-white/5 to-white/2 hover:from-white/10 hover:to-white/5 transition">
+  <article class="border border-black/10 dark:border-white/10 rounded-2xl p-6 bg-gradient-to-b
+  from-black/5 to-black/2 dark:from-white/5 dark:to-white/2
+  hover:from-black/10 hover:to-black/5 dark:hover:from-white/10 dark:hover:to-white/5 transition">
     <h3 class="text-2xl font-semibold mb-4 text-center">Lenguajes</h3>
     <div class="grid grid-cols-3 gap-2">
       {LANGUAGES.map((language) => (
@@ -48,7 +50,9 @@ const TOOLS: SkillsItemProps[] = [
       ))}
     </div>
   </article>
-  <article class="border border-white/10 rounded-2xl p-6 bg-gradient-to-b from-white/5 to-white/2 hover:from-white/10 hover:to-white/5 transition">
+    <article class="border border-black/10 dark:border-white/10 rounded-2xl p-6 bg-gradient-to-b
+  from-black/5 to-black/2 dark:from-white/5 dark:to-white/2
+  hover:from-black/10 hover:to-black/5 dark:hover:from-white/10 dark:hover:to-white/5 transition">
     <h3 class="text-2xl font-semibold mb-4 text-center">Frameworks</h3>
     <div class="grid grid-cols-3 gap-2">
       {FRAMEWORKS.map((framework) => (
@@ -56,7 +60,9 @@ const TOOLS: SkillsItemProps[] = [
       ))}
     </div>
   </article>
-  <article class="border border-white/10 rounded-2xl p-6 bg-gradient-to-b from-white/5 to-white/2 hover:from-white/10 hover:to-white/5 transition md:col-span-2">
+    <article class="border border-black/10 dark:border-white/10 rounded-2xl p-6 bg-gradient-to-b
+  from-black/5 to-black/2 dark:from-white/5 dark:to-white/2
+  hover:from-black/10 hover:to-black/5 dark:hover:from-white/10 dark:hover:to-white/5 transition col-span-1 md:col-span-2">
     <h3 class="text-2xl font-semibold mb-4 text-center">Herramientas</h3>
     <div class="grid grid-cols-3 gap-2">
       {TOOLS.map((tool) => (
