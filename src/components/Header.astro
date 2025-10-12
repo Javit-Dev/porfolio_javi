@@ -59,16 +59,15 @@ import { Image } from 'astro:assets';
   document.addEventListener('DOMContentLoaded', () => {
     // --- Elementos ---
     const header     = document.querySelector('header');
-    const navBar     = document.querySelector('header nav');
     const menuBtn    = document.getElementById('menu-button');
-    const panel      = document.getElementById('mobile-collapsible'); // nuevo contenedor
+    const panel      = document.getElementById('mobile-collapsible'); 
     const navAvatar  = document.getElementById('nav-avatar');
     const desktopNav = document.getElementById('desktop-nav');
     const mobileNav  = document.getElementById('mobile-nav');
 
     if (!menuBtn || !panel || !desktopNav || !mobileNav) return;
 
-    // --- Altura header (por si la usas en otros cálculos) ---
+    // --- Altura header ---
     const setHeaderH = () => {
       const h = header?.offsetHeight || 56;
       document.documentElement.style.setProperty('--header-h', `${h}px`);
